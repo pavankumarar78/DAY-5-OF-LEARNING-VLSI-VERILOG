@@ -1,0 +1,13 @@
+`timescale 1ns/1ps
+module top;
+   reg clk;
+   initial begin
+       forever begin
+	     clk=1;
+		 #0.6;
+		 clk=0;
+		 #1.4;
+       end
+   end
+   initial #400 $stop;
+endmodule 
