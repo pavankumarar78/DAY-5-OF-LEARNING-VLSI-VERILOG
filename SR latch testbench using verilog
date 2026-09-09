@@ -1,0 +1,17 @@
+`include "srlatch.v"
+module top;
+   reg clk,s,r;
+   wire q;
+   srlatch dut(clk,s,r,q);
+   initial forever #5 clk=~clk; //clock generation
+   initial begin
+      clk=0;
+         {s,r}=2'b10;
+	     #1;
+	   repeat(10)begin
+		  {s,r}=$random;
+		 #1;
+	  end
+	  $finish;
+   end
+endmodule 
