@@ -1,0 +1,24 @@
+module dlatch(clk,din,q); //positive level d latch
+    input clk,din;
+	output reg q;
+
+	always@(clk,din)begin
+	    if(clk) q=din;
+	end
+endmodule 
+module top;
+   reg clk,din;
+   wire q;
+   dlatch dut(clk,din,q);
+   initial forever #5 clk=~clk; //clock generation
+   initial begin
+      clk=1;
+	   repeat(10)begin
+         din=1;
+	     #1;
+		 din=0;
+		 #1;
+	  end
+	  $finish;
+   end
+endmodule 
