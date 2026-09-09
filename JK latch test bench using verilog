@@ -1,0 +1,17 @@
+`include "jklatch.v"
+module top;
+   reg clk,j,k;
+   wire q;
+   jklatch dut(clk,j,k,q);
+   initial forever #5 clk=~clk; //clock generation
+   initial begin
+      clk=0;
+         {j,k}=2'b10;
+	     #1;
+	   repeat(10)begin
+		  {j,k}=$random;
+		 #1;
+	  end
+	  $finish;
+   end
+endmodule 
