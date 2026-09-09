@@ -1,0 +1,14 @@
+module jkff(clk,j,k,rst,q);
+   input clk,j,k,rst;
+   output reg q;
+   always@(posedge clk)begin
+      if(!rst) q<=0; //if rst==0
+	  else begin  //if rst==1
+	     if({j,k}==0) q<=q;
+		 else if({j,k}==1) q<=0;
+		 else if({j,k}==2) q<=1;
+		 else if({j,k}==3) q<=~q;
+		 else q<='bx;
+     end
+   end
+endmodule 
