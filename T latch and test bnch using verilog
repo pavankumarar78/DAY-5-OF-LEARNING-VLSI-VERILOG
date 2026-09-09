@@ -1,0 +1,26 @@
+module tlatch(clk,t,q); //negative level t latch
+   input clk,t;
+   output reg q;
+   always@(clk,t)begin
+      if(!clk)begin
+	     if(t) q=~q;
+	  end
+   end
+endmodule 
+module top;
+   reg clk,t;
+   wire q;
+   tlatch dut(clk,t,q);
+   initial forever #5 clk=~clk;
+   initial begin
+       clk=0;
+	  force dut.q=0;
+	  #1;
+	  release dut.q;
+       repeat(10)begin
+	       t=$random;
+		   #2;
+	   end
+	   $finish;
+   end
+endmodule 
