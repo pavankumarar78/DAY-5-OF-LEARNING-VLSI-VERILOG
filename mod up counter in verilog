@@ -1,0 +1,28 @@
+module mod_up_counter(clk,rst,count);
+  output reg[3:0]count;
+  input clk,rst;
+  always@(posedge clk)begin
+     if(rst) count<=0;
+	 else begin
+	    count<=count+1;
+		if(count==9) count<=0;
+	 end
+  end
+endmodule 
+module top;
+   reg clk,rst;
+   wire [3:0]count;
+   mod_up_counter dut(clk,rst,count);
+   initial begin
+      clk=0;
+	  forever #5 clk=~clk;
+   end
+   initial begin
+      rst=1;
+	  #24;
+	  rst=0;
+	  #400 $stop;
+   end
+endmodule 
+
+
