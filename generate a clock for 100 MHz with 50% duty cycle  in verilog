@@ -1,0 +1,15 @@
+`timescale 1ns/1ps
+module top;
+    reg clk;
+    real tp_jitter;
+
+	initial begin
+	   forever begin
+	     tp_jitter=($urandom_range(96,104)*10)/100.0;
+	      clk=1;
+		  #(tp_jitter/2);
+		  clk=0;
+		  #(tp_jitter/2);
+	   end
+	end  initial #400 $stop;
+endmodule 
