@@ -1,0 +1,14 @@
+module srlatch(clk,s,r,q);
+   input clk,s,r;
+   output reg q;
+    always @(clk,s,r)begin
+	  if(!clk)begin
+	   case({s,r})
+	      2'b00: q=q;
+		  2'b01:q=0;
+		  2'b10: q=1;
+		  2'b11: q='bx;
+	   endcase
+	  end
+	end
+endmodule 
