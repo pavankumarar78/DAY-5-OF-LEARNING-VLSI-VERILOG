@@ -1,0 +1,41 @@
+module dff(clk,rst,din,q); 
+   input clk,rst,din;
+   output reg q;
+
+   always @(posedge clk)begin
+       if(rst) q<=0;  
+	   else q<=din;
+   end 
+endmodule 
+
+module top;
+   reg clk,rst,din;
+   wire q;
+   integer x;
+   dff dut(clk,rst,din,q);
+   initial forever #5 clk=~clk;
+   initial begin //rst
+       clk=0;
+       rst=1;
+	   #21;
+	   rst=0;
+	   #43;
+	   rst=1;
+	   #22;
+	   rst=0;
+   end
+   initial begin //din
+       forever begin
+          din=$random;
+          x=$urandom_range(0,9);
+	      #x;
+    	end
+	end
+	initial #400 $stop; 
+endmodule 
+
+
+
+
+
+
