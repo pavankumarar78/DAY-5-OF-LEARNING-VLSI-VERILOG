@@ -1,0 +1,22 @@
+`include "tff.v"
+module top;
+  reg clk,rst,t;
+  wire q;
+  tff dut(clk,rst,t,q);
+  initial begin
+     clk=0;
+	 forever #5 clk=~clk;
+  end
+  initial begin //rst generation
+     rst=1;
+	 #27;
+	 rst=0;
+  end
+  initial begin //t input generation
+      repeat(20)begin
+	      @(negedge clk);
+		  t=$random;
+	  end
+	  $finish;
+  end
+endmodule
