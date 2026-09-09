@@ -1,0 +1,11 @@
+module top;
+   reg clk;
+
+   initial begin
+ clk=1; 
+    forever 
+      #5 clk=~clk;
+   end
+
+   initial #200 $stop;
+endmodule 
