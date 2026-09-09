@@ -1,0 +1,22 @@
+`include "jkff.v"
+module top;
+   reg clk,rst,j,k;
+   wire q;
+   jkff dut(clk,j,k,rst,q);
+   initial begin //clock generation
+      clk=0;
+	  forever #5 clk=~clk;
+   end
+   initial begin //rst generation
+      rst=0;
+	  #24;
+	  rst=1;
+   end
+   initial begin
+      repeat(20)begin
+         @(negedge clk);
+         {j,k}=$random;
+	  end
+	  $finish;
+   end
+endmodule 
