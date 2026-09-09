@@ -1,0 +1,38 @@
+module mod_up_down_counter(clk,rst,up_down,count);
+    input clk,rst,up_down;
+	output reg[3:0]count;
+	always@(posedge clk)begin
+	  if(rst)begin
+	      if(up_down) count<=0;
+		  else count<=15;
+	  end
+	  else begin
+	     if(up_down) begin
+		    count<=count+1;
+			if(count==9) count<=0;
+		 end
+		 else begin
+		     count<=count-1;
+			 if(count==7) count<=15;
+		 end
+	  end
+	end
+endmodule
+module top;
+   reg clk,rst,up_down;
+   wire [3:0]count;
+   mod_up_down_counter dut(clk,rst,up_down,count);
+   initial begin
+      clk=0;
+	  forever #5 clk=~clk;
+   end
+   initial begin
+       rst=1;
+	   #40;
+	   rst=0;
+	   up_down=1;
+	   #100;
+	   up_down=0;
+	   #400 $finish;
+   end
+endmodule 
