@@ -1,0 +1,19 @@
+`include "up_down_counter.v"
+module top;
+   reg clk,rst,up_down;
+   wire [2:0]count;
+   up_down_counter dut(clk,rst,up_down,count);
+   initial begin
+      clk=0;
+	  forever #5 clk=~clk;
+   end
+   initial begin
+       rst=1;
+	   #40;
+	   rst=0;
+	   up_down=1;
+	   #100;
+	   up_down=0;
+	   #400 $finish;
+   end
+endmodule 
